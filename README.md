@@ -1,1 +1,1 @@
-# industrial_6sem
+# Industrial Programming tasks
