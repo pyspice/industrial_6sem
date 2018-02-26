@@ -1,0 +1,41 @@
+version: '3.3'
+services:
+  consumer:
+    build: ./consumer
+    networks:
+     - docker_network
+    depends_on:
+     - queue
+     - db         
+
+  producer:
+    build: ./producer
+    networks:
+     - docker_network
+    depends_on:
+     - queue
+     - consumer
+
+  reader:
+    build: ./reader
+    networks:
+     - docker_network
+    depends_on:
+     - db
+
+  queue:
+    image: rabbitmq
+    ports:
+     - "5672:5672"
+    networks:
+     - docker_network
+  
+  db:
+    image: mongo
+    ports: 
+     - "27017:27017"
+    networks:
+     - docker_network
+
+networks:
+  docker_network:
